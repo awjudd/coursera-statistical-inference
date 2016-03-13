@@ -1,0 +1,82 @@
+---
+title: "Comparing Exponential Distribution with the Central Limit Theorem"
+author: "Andrew William Judd"
+date: "March 13, 2016"
+output: html_document
+---
+
+# Overview
+
+# Simulations
+
+Start by defining some constants that we will be using throughout the analysis.
+
+```{r}
+# Set the simulation seed value so that the data is reproducible
+set.seed(256)
+
+# Setup the variables that we need
+simulation.random_uniform <- 40
+simulation.rate <- 0.2
+simulation.count <- 1000
+```
+
+Now that the environment is set up, let's run the simulation.
+
+```{r}
+# Generate the sample data
+simulation.data <- matrix(
+    rexp(
+        simulation.random_uniform * simulation.count,
+        simulation.rate
+    ),
+    simulation.count
+)
+```
+
+
+# Questions
+
+1. Show the sample mean and compare it to the theoretical mean of the distribution.
+
+With the simulation data present, we need to compare the actual versus the theoretical.
+
+```{r}
+# Mean = 1 / lambda
+theoretical.mean <- 1 / simulation.rate
+
+# Calculate the mean of each row
+row.mean <- apply(
+    simulation.data, 
+    1, 
+    mean
+)
+
+# Calculate the actual mean
+actual.mean <- mean(row.mean)
+```
+
+- Theoretical Mean: **``r theoretical.mean ``**
+- Actual Mean: **``r actual.mean ``**
+
+2. Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.
+
+```{r}
+# Variance = ((1 / lambda) ^ 2) / n
+theoretical.variance <- ( (1 / simulation.rate) ^ 2) / simulation.random_uniform
+
+# Calculate the actual variance
+actual.variance <- var(row.mean)
+```
+
+- Theoretical Variance: **``r theoretical.variance ``**
+- Actual Variance: **``r actual.variance ``**
+
+3. Show that the distribution is approximately normal.
+
+```{r}
+hist(row.mean, xlab = 'Sample Mean', main='Frequency of Sample Means', breaks = 20)
+abline(v = actual.mean, col = 'green', lwd = 1)
+abline(v = theoretical.mean, col = 'blue', lwd = 1)
+```
+
