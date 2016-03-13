@@ -1,0 +1,82 @@
+---
+title: "Tooth Growth Exploration"
+author: "Andrew William Judd"
+date: "March 13, 2016"
+output: html_document
+---
+
+# Overview
+
+# Setup
+
+Setup the environment by loading the `datasets` library.  Once it has been loaded, just take a quick look through it to find out what is in the data.
+
+```{r}
+# Load the data sets
+library(datasets)
+
+# Load ggplot2
+library(ggplot2)
+
+# Copy the data for internal use
+data <- ToothGrowth
+
+```
+
+# Exploratory Data Analysis
+
+Now that the data has been loaded, let's take a look through it to get a good feeling for what is in it.
+
+```{r}
+# Look at the structure of the data
+str(data)
+
+# Look at the top few rows of the data
+head(data)
+
+# Look at the summary of the data
+summary(data)
+```
+
+# Initial Analysis
+
+Look 
+
+```{r}
+ggplot(data = data, aes(x = supp, y = len, group = supp)) +
+    
+    geom_boxplot(aes(fill = supp)) +
+    labs(
+        x = 'Supplement',
+        y = 'Tooth Length',
+        title = 'The Effect of Supplements on Tooth Length'
+    ) +
+    scale_fill_brewer(palette = 'Set2')
+```
+
+```{r}
+ggplot(data = data, aes(x = dose, y = len, group = factor(dose))) +
+    geom_boxplot(aes(fill = factor(dose))) +
+    labs(
+        x = 'Dosage',
+        y = 'Tooth Length',
+        title = 'The Effect of Doses on Tooth Length'
+    ) +
+    scale_fill_brewer(palette = 'Set2')
+```
+
+# Confidence Intervals and Hypothesis Test
+
+```{r}
+t.test(len~supp, data=data)
+```
+
+```{r}
+t.test(len~dose, data=data[data$dose==0.5|data$dose==1.0,])
+```
+
+```{r}
+t.test(len~dose, data=data[data$dose==2.0|data$dose==1.0,])
+```
+
+# Conclusions
