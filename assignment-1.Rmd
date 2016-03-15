@@ -2,7 +2,7 @@
 title: "Comparing Exponential Distribution with the Central Limit Theorem"
 author: "Andrew William Judd"
 date: "March 20, 2016"
-output: html_document
+output: pdf_document
 ---
 
 # Overview

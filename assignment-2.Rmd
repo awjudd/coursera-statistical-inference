@@ -2,7 +2,7 @@
 title: "Tooth Growth Exploration"
 author: "Andrew William Judd"
 date: "March 20, 2016"
-output: html_document
+output: pdf_document
 ---
 
 # Overview
