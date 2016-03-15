@@ -51,6 +51,7 @@ ggplot(data = data, aes(x = supp, y = len, group = supp)) +
         y = 'Tooth Length',
         title = 'The Effect of Supplements on Tooth Length'
     ) +
+    facet_grid(. ~ dose) + 
     scale_fill_brewer(palette = 'Set2')
 ```
 
@@ -62,6 +63,7 @@ ggplot(data = data, aes(x = dose, y = len, group = factor(dose))) +
         y = 'Tooth Length',
         title = 'The Effect of Doses on Tooth Length'
     ) +
+    facet_grid(.~supp) + 
     scale_fill_brewer(palette = 'Set2')
 ```
 
