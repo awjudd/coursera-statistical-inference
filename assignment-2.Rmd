@@ -1,17 +1,25 @@
 ---
 title: "Tooth Growth Exploration"
 author: "Andrew William Judd"
-date: "March 13, 2016"
+date: "March 20, 2016"
 output: html_document
 ---
 
 # Overview
 
+The goal of this analysis is to investigate the relationship between the use of various dosages supplements on tooth growth in gerbils.
+
+Within this study there were two supplements that were given in gerbils (Orange Juice [OJ] and Vitamin C [VC]).  Both of these were also given to the gerbils in different dosages.
+
+This study also analyzes the impact of these dosages on tooth growth.
+
+To see more information about this data set visit [here](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ToothGrowth.html).
+
 # Setup
 
-Setup the environment by loading the `datasets` library.  Once it has been loaded, just take a quick look through it to find out what is in the data.
+Setup the environment by loading the `datasets` library.  Make a copy of the `ToothGrowth` data for us to use. Once it has been loaded, just take a quick look through it to find out what is in the data.
 
-```{r}
+```{r warning=FALSE}
 # Load the data sets
 library(datasets)
 
@@ -20,7 +28,6 @@ library(ggplot2)
 
 # Copy the data for internal use
 data <- ToothGrowth
-
 ```
 
 # Exploratory Data Analysis
@@ -40,11 +47,10 @@ summary(data)
 
 # Initial Analysis
 
-Look 
+Let's look at the data split out by the dosage to see how the supplements in various amounts changes the tooth growth in the gerbils.
 
 ```{r}
 ggplot(data = data, aes(x = supp, y = len, group = supp)) +
-    
     geom_boxplot(aes(fill = supp)) +
     labs(
         x = 'Supplement',
@@ -55,6 +61,8 @@ ggplot(data = data, aes(x = supp, y = len, group = supp)) +
     scale_fill_brewer(palette = 'Set2')
 ```
 
+Now, let's look to see how the dosages of each supplement effect each other.
+
 ```{r}
 ggplot(data = data, aes(x = dose, y = len, group = factor(dose))) +
     geom_boxplot(aes(fill = factor(dose))) +
@@ -63,22 +71,76 @@ ggplot(data = data, aes(x = dose, y = len, group = factor(dose))) +
         y = 'Tooth Length',
         title = 'The Effect of Doses on Tooth Length'
     ) +
-    facet_grid(.~supp) + 
+    facet_grid(. ~ supp) + 
     scale_fill_brewer(palette = 'Set2')
 ```
 
+Based on our exploratory results, our conclusion is that as the dosage of either Orange Juice (OJ) or Vitamin C (VC) increases, the length of the teeth also increases.
+
 # Confidence Intervals and Hypothesis Test
 
-```{r}
-t.test(len~supp, data=data)
-```
+## Hypotheses
+
+1. Orange Juice and Vitamin C lead to the same overall tooth growth in gerbils
+2. The dose of 0.5 mg per day and 1.0 mg per day lead to the same overall tooth growth in gerbils
+3. The dose of 1.0 mg per day and 2.0 mg per day lead to the same overall tooth growth in gerbils
+4. The dose of 0.5 mg per day and 2.0 mg per day lead to the same overall tooth growth in gerbils
+
+## Investigation
+
+### Hypothesis 1
+
+Let's look into which supplement has the largest effect on what is going.
 
 ```{r}
-t.test(len~dose, data=data[data$dose==0.5|data$dose==1.0,])
+# Orange Juice and Vitamin C lead to the same overall tooth growth in gerbils
+t.test(
+    len ~ supp,
+    data = data
+)
 ```
 
+Looking at these results, we have to note that the confidence intervals contains 0.  Because of this, we do not have enough evidence to reject the null hypothesis.  By rejecting the null hypothesis we are stating that Orange Juice and Vitamin C provide similar effects in respect to the tooth growth of gerbils.
+
+### Hypothesis 2
+
 ```{r}
-t.test(len~dose, data=data[data$dose==2.0|data$dose==1.0,])
+# The dose of 0.5 mg per day and 1.0 mg per day lead to the same overall tooth growth in gerbils
+t.test(
+    len ~ dose,
+    data[data$dose %in% c(0.5, 1), ]
+)
 ```
+
+Looking at the confidence interval for this comparison (0.5 mg per day and 1.0 mg per day), and the fact that it does not include 0.  We are able to reject the null hypothesis.  By rejecting the null hypothesis, we are able to conclude that the difference between the doses have an affect on the total tooth growth of gerbils.
+
+### Hypothesis 3
+
+```{r}
+# The dose of 1.0 mg per day and 2.0 mg per day lead to the same overall tooth growth in gerbils
+t.test(
+    len ~ dose,
+    data[data$dose %in% c(1, 2), ]
+)
+```
+
+Looking at the confidence interval for this comparison (1.0 mg per day and 2.0 mg per day), and the fact that it does not include 0.  We are able to reject the null hypothesis.  By rejecting the null hypothesis, we are able to conclude that the difference between the doses have an affect on the total tooth growth of gerbils.
+
+### Hypothesis 4
+
+```{r}
+# The dose of 0.5 mg per day and 2.0 mg per day lead to the same overall tooth growth in gerbils
+t.test(
+    len ~ dose,
+    data[data$dose %in% c(0.5, 2), ]
+)
+```
+
+Looking at the confidence interval for this comparison (0.5 mg per day and 2.0 mg per day), and the fact that it does not include 0.  We are able to reject the null hypothesis.  By rejecting the null hypothesis, we are able to conclude that the difference between the doses have an affect on the total tooth growth of gerbils.
 
 # Conclusions
+
+Based on the analysis provided above, we are able to conclude the following:
+
+- The type of supplement does not affect the total tooth length in gerbils.
+- The total dosage of a supplement that a gerbil receives directly impacts the length of their teeth.
