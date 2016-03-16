@@ -1,5 +1,5 @@
 ---
-title: "Comparing Exponential Distribution with the Central Limit Theorem"
+title: "Comparing the Exponential Distribution with the Central Limit Theorem"
 author: "Andrew William Judd"
 date: "March 20, 2016"
 output: pdf_document
@@ -112,4 +112,7 @@ abline(
 )
 ```
 
-By looking at this graph, we are able to see that the curve is almost normal, and based on our previous two questions, we know that the means and variances are similar.  Because of that, we are able to conclude that we are able to use the exponential distribution to simulate a normal distribution.
+By looking at this graph, we are able to see that the curve is almost normal, and based on our previous two questions, we know that the means and variances are similar.  In order to provide a good understanding of the graph, both the theoretical (blue) and actual (red) means have been added to the plot.
+
+
+Because of that, we are able to conclude that we are able to use the exponential distribution to simulate a normal distribution.
