@@ -11,7 +11,7 @@ The goal of this analysis is to investigate the relationship between the use of 
 
 Within this study there were two supplements that were given in gerbils (Orange Juice [OJ] and Vitamin C [VC]).  Both of these were also given to the gerbils in different dosages.
 
-This study also analyzes the impact of these dosages on tooth growth.
+This study also analyzes the impact of these dosages on tooth growth. $\lambda$
 
 To see more information about this data set visit [here](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ToothGrowth.html).
 

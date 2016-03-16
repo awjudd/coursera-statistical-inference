@@ -9,7 +9,7 @@ output: pdf_document
 
 This project is used in order to investigate and experiment with the exponential distribution in `R` while comparing it to the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem).
 
-We are simluating the exponential by using the `R`'s built in `rexp(n, lambda)` function.  In this example, `lambda = rate`.
+We are simulating the exponential distribution by using the `R`'s built in `rexp(n, lambda)` function.  In this example, `lambda = rate`.
 
 We will be running this test with a total of 1000 simulations.
 
@@ -65,7 +65,11 @@ actual.mean <- mean(row.mean)
 - Theoretical Mean: **``r theoretical.mean ``**
 - Actual Mean: **``r actual.mean ``**
 
+As you can see above, both the Theoretical and Actual means are very close.  This proves that the Central Limit Theorem is accurate when we are trying to calculate means.
+
 **2. Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.**
+
+Now we need to compare the variance between the theoretical and actual.
 
 ```{r}
 # Variance = ((1 / lambda) ^ 2) / n
@@ -78,7 +82,11 @@ actual.variance <- var(row.mean)
 - Theoretical Variance: **``r theoretical.variance ``**
 - Actual Variance: **``r actual.variance ``**
 
+As you can see above, both the Theoretical and Actual variances are very close.  This proves that the Central Limit Theorem is accurate when we are trying to calculate variances
+
 **3. Show that the distribution is approximately normal.**
+
+Draw a histogram that contains the frequency of the row means withing the derived data.
 
 ```{r}
 # Draw a histogram with the data points that we collected
@@ -104,4 +112,4 @@ abline(
 )
 ```
 
-As you can see, both the calculated sample mean, and the theoretical means are very close to each other.  Because of this we are able to say that this distribution is approximately normal.
+By looking at this graph, we are able to see that the curve is almost normal, and based on our previous two questions, we know that the means and variances are similar.  Because of that, we are able to conclude that we are able to use the exponential distribution to simulate a normal distribution.
